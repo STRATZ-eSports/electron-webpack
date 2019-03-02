@@ -19,28 +19,7 @@ export class BaseRendererTarget extends BaseTarget {
   configureRules(configurator: WebpackConfigurator): void {
     super.configureRules(configurator)
 
-    configurator.extensions.push(".css")
-
-    const miniLoaders = [MiniCssExtractPlugin.loader, "css-loader"]
-    const cssHotLoader = configurator.isProduction ? miniLoaders : ["css-hot-loader"].concat(miniLoaders)
-    if (!configurator.isProduction) {
-      // https://github.com/shepherdwind/css-hot-loader/issues/37
-      configurator.entryFiles.unshift("css-hot-loader/hotModuleReplacement")
-    }
-
     configurator.rules.push(
-      {
-        test: /\.css$/,
-        use: cssHotLoader,
-      },
-      {
-        test: /\.less$/,
-        use: cssHotLoader.concat("less-loader"),
-      },
-      {
-        test: /\.scss$/,
-        use: cssHotLoader.concat("sass-loader"),
-      },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
@@ -108,13 +87,15 @@ export class RendererTarget extends BaseRendererTarget {
       nodeModules: nodeModulePath
     }))
 
+    const assets = process.env.ELECTRON_WEBPACK_STATIC_DIR || "static"
+
     if (configurator.isProduction) {
       configurator.plugins.push(new DefinePlugin({
-        __static: `process.resourcesPath + "/static"`
+        __static: `process.resourcesPath + "/${assets}"`
       }))
     }
     else {
-      const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")];
+      const contentBase = [path.join(configurator.projectDir, assets), path.join(configurator.commonDistDirectory, "renderer-dll")];
       (configurator.config as any).devServer = {
         contentBase,
         host: process.env.ELECTRON_WEBPACK_WDS_HOST || "localhost",

@@ -107,8 +107,9 @@ function isAncestor(file: string, dir: string) {
 function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const plugins = configurator.plugins
   configurator.config.optimization!!.namedModules = true
+  const assets = process.env.ELECTRON_WEBPACK_STATIC_DIR || "static"
   plugins.push(new DefinePlugin({
-    __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`,
+    __static: `"${path.join(configurator.projectDir, assets).replace(/\\/g, "\\\\")}"`,
     "process.env.NODE_ENV": configurator.isProduction ? "\"production\"" : "\"development\""
   }))
 

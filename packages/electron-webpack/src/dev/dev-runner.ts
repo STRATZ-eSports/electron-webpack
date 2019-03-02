@@ -35,8 +35,8 @@ async function emptyMainOutput() {
 
 class DevRunner {
   async start() {
-    const wdsHost = "localhost"
-    const wdsPort = await getFreePort(wdsHost, 9080)
+    const wdsHost = process.env.ELECTRON_WEBPACK_WDS_HOST || "localhost"
+    const wdsPort = process.env.ELECTRON_WEBPACK_WDS_PORT || await getFreePort(wdsHost, 9080)
     const env = {
       ...getCommonEnv(),
       ELECTRON_WEBPACK_WDS_HOST: wdsHost,
