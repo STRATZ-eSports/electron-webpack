@@ -1,3 +1,16 @@
+fix this :thinking: to be able to build
+
+`node_modules/read-config-file/out/main.d.ts`
+```diff
+import { Lazy } from "lazy-val";
+import { ErrorObject } from "ajv";
++ import { DotenvParseOutput } from "dotenv"
+```
+```diff
+- export declare function loadEnv(envFile: string): Promise<import("dotenv").DotenvParseOutput | null>;
++ export declare function loadEnv(envFile: string): Promise<DotenvParseOutput | null>;
+```
+
 # electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
