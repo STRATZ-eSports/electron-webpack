@@ -1,5 +1,5 @@
 {
-  "name": "electron-webpack",
+  "name": "@animez/electron-webpack",
   "version": "2.6.1",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
@@ -55,6 +55,7 @@
   },
   "types": "./out/main.d.ts",
   "publishConfig": {
-    "tag": "next"
+    "tag": "next",
+    "access": "public"
   }
 }
