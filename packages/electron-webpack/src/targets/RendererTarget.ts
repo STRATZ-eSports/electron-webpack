@@ -9,8 +9,6 @@ import { WebpackConfigurator } from "../main"
 import { statOrNull } from "../util"
 import { BaseTarget, configureFileLoader } from "./BaseTarget"
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-
 export class BaseRendererTarget extends BaseTarget {
   constructor() {
     super()
@@ -63,7 +61,6 @@ export class BaseRendererTarget extends BaseTarget {
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
     configurator.debug("Add ExtractTextPlugin plugin")
-    configurator.plugins.push(new MiniCssExtractPlugin({filename: `${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`}))
 
     await BaseTarget.prototype.configurePlugins.call(this, configurator)
   }

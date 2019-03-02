@@ -1,6 +1,6 @@
 {
   "name": "@animez/electron-webpack",
-  "version": "2.6.1",
+  "version": "2.6.1-animez.3",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
